@@ -15,7 +15,7 @@ import { MoviesService } from '../../core/services/movies.service';
 })
 export class MovieCardsComponent implements OnInit {
   searchControl: FormControl;
-  movies$: Observable<any>;
+  movies$: Observable<any[]>;
 
   constructor(private movieService: MoviesService) {}
 
@@ -25,9 +25,7 @@ export class MovieCardsComponent implements OnInit {
     this.movies$ = this.searchControl.valueChanges.pipe(
       debounceTime(500),
       distinctUntilChanged(),
-      switchMap((searchString) =>
-        this.movieService.getMovieBySearchTerm(searchString)
-      ),
+      switchMap((searchString) => this.movieService.getData(searchString)),
       map((res: any) => res.Search)
     );
   }

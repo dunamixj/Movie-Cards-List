@@ -1,10 +1,9 @@
-<p>movie-cards works!</p>
 <mat-tab-group mat-align-tabs="start">
   <mat-tab label="Dashboard">
     <input type="text" [formControl]="searchControl" />
     <ul>
       <li *ngFor="let movie of movies$ | async">
-        <app-card [data]="movie"></app-card>
+        <app-card [data]="card"></app-card>
       </li>
     </ul>
   </mat-tab>

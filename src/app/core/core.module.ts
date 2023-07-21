@@ -1,5 +1,5 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { CardsService } from './services/cards.service';
+
 import { MoviesService } from './services/movies.service';
 
 @NgModule({

@@ -10,7 +10,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
-import { CardsDashboardComponent } from './components/cards-dashboard/cards-dashboard.component';
+
 import { MovieCardsComponent } from './components/movie-cards/movie-cards.component';
 @NgModule({
   imports: [
@@ -23,7 +23,7 @@ import { MovieCardsComponent } from './components/movie-cards/movie-cards.compon
     CoreModule,
     SharedModule,
   ],
-  declarations: [AppComponent, CardsDashboardComponent, MovieCardsComponent],
+  declarations: [AppComponent, MovieCardsComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
