@@ -1,45 +1,38 @@
-import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { CardsService } from './../../core/services/cards.service';
+import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import {
+  map,
+  switchMap,
+  debounceTime,
+  distinctUntilChanged,
+} from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
+import { MoviesService } from '../../core/services/movies.service';
 import { Card } from '../../models/element.model';
 import { KeyValue } from '../../models/key-value.model';
 
 @Component({
   selector: 'app-cards-dashboard',
   templateUrl: './cards-dashboard.component.html',
-  styleUrls: ['./cards-dashboard.component.scss']
+  styleUrls: ['./cards-dashboard.component.scss'],
 })
-export class CardsDashboardComponent implements OnInit {
-
-  @ViewChild(CdkVirtualScrollViewport) virtualScroll: CdkVirtualScrollViewport;
-  // Vble to store cards data
+export class CardsDashboardComponent {
   cards: Card[];
+  movies: Observable<any[]>;
+  searchControl: FormControl;
 
-  // Options for ComboBox
-  searchFields: KeyValue[] = [
-    { key: 'id', value: 'ID' },
-    { key: 'text', value: 'Description' }
-  ];
-
-  // Vbles to store filter data
-  searchText = '';
-  searchField = '';
-
-  constructor(private cardsService: CardsService) {
-  }
+  constructor(private moviesService: MoviesService) {}
 
   ngOnInit() {
-    this.cardsService.getData().subscribe(
-      (cards) => {
-        this.cards = cards;
-      }
-    )
-  }
-
-  // Sets data for the filter
-  handleFilter(filterParams: any) {
-    // this.virtualScroll.scrollToIndex(0);
-    this.searchField = filterParams.field;
-    this.searchText = filterParams.text;
+    this.searchControl = new FormControl();
+    this.movies = this.searchControl.valueChanges.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      switchMap((searchString) =>
+        this.moviesService.getMovieBySearchTerm(searchString)
+      ),
+      map((res: any) => res.Search)
+    );
   }
 }

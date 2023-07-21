@@ -1,12 +1,15 @@
 <mat-card>
   <img
-    [src]="data.photoUrl"
-    [alt]="'image#' + data.id"
+    [src]="data.poster"
+    [alt]="'image#' + data.title"
     width="500px"
     height="500px"
     loading="lazy"
-    onerror="this.src='./../../../../assets/images/404-error-file-not-found.jpg'" >
-	<mat-card-content>
-		<p>{{data.text}}</p>
-	</mat-card-content>
+    onerror="this.src='./../../../../assets/images/404-error-file-not-found.jpg'"
+  />
+  <mat-card-content>
+    <p>{{ data.Title }}</p>
+    <p>{{ data.year }}</p>
+    <p>{{ data.type }}</p>
+  </mat-card-content>
 </mat-card>

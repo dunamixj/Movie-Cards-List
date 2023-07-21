@@ -21,9 +21,10 @@ export class CardsService {
     const elements = [];
     for (let id = 1; id <= 4000; id++) {
       const card = {
-        id,
-        photoUrl: this.generateImage(id),
-        text: this.generateParagraph(),
+        title: 'titile_' + id,
+        year: id,
+        type: '',
+        poster: this.generateImage(id),
       };
       elements.push(card);
     }
